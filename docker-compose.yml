@@ -11,7 +11,7 @@ services:
         git clone --depth 1 https://github.com/rodsct/saasiav4.git /app &&
         cd /app &&
         echo '📦 Installing dependencies with npm install...' &&
-        npm install --production --verbose &&
+        npm install --verbose &&
         echo '🗄️ Generating Prisma client...' &&
         npx prisma generate &&
         echo '🏗️ Building application...' &&
