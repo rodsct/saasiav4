@@ -1,9 +1,6 @@
-# Override file for Easypanel - DO NOT DELETE
-# Easypanel automatically looks for this file
-# This file ensures build context is correct
+# Override file for Easypanel - NO BUILD REQUIRED
+# This configuration uses base Node image + volumes instead of Dockerfile
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    # No build section needed - using base image with runtime installation
