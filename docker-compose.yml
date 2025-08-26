@@ -11,8 +11,8 @@ services:
         git clone --depth 1 https://github.com/rodsct/saasiav4.git /app &&
         cd /app &&
         echo '📦 Skipping npm install - using npx...' &&
-        echo '🔧 Using minimal next.config.mjs...' &&
-        cp next.config.minimal.mjs next.config.mjs &&
+        echo '🔧 Using bare next.config.mjs...' &&
+        cp next.config.bare.mjs next.config.mjs &&
         echo '🏃 Starting development server with npx...' &&
         npx next@15.1.0 dev
       "
