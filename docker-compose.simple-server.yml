@@ -1,0 +1,20 @@
+# Simple Node.js server - no external dependencies
+services:
+  app:
+    image: node:20-alpine
+    working_dir: /app
+    command: >
+      sh -c "
+        echo '🚀 Starting simple Node.js server...' &&
+        apk add --no-cache git &&
+        git clone --depth 1 https://github.com/rodsct/saasiav4.git . &&
+        echo '📁 Repository contents:' && ls -la &&
+        echo '🏃 Starting simple server...' &&
+        node simple-server.js
+      "
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
