@@ -92,9 +92,9 @@ Thumbs.db
 .gitignore
 
 # Docker
-Dockerfile
-docker-compose.yml
-.dockerignore
+# Note: Keep Dockerfile available for building
+# docker-compose.yml
+# .dockerignore
 
 # Claude
 .claude/
