@@ -1,6 +1,6 @@
-# Override file for Easypanel - NO BUILD REQUIRED
-# This configuration uses base Node image + volumes instead of Dockerfile
+# Override file for Easypanel - Git Clone Solution
+# This approach clones the repo directly in the container
+# No file mounting required - completely self-contained
 
 services:
-  app:
-    # No build section needed - using base image with runtime installation
+  # No overrides needed - git clone handles everything

@@ -1,31 +1,24 @@
-# Fixed Docker Compose - Using init container to copy files
+# Git Clone Solution - Most reliable for Easypanel
 services:
-  init:
-    image: alpine:latest
-    working_dir: /source
-    command: >
-      sh -c "
-        echo 'Copying source files...' &&
-        cp -r . /app/ &&
-        echo 'Files copied successfully' &&
-        ls -la /app/
-      "
-    volumes:
-      - .:/source
-      - app-files:/app
-
   app:
     image: node:18-alpine
-    working_dir: /app
+    working_dir: /tmp
     command: >
       sh -c "
-        echo 'Waiting for file copy...' &&
-        while [ ! -f package.json ]; do sleep 1; done &&
-        echo 'Files detected, starting build...' &&
-        apk add --no-cache libc6-compat &&
+        echo '🚀 Starting deployment process...' &&
+        apk add --no-cache libc6-compat git openssh &&
+        echo '📦 Cloning repository...' &&
+        git clone https://github.com/rodsct/saasiav4.git /app &&
+        cd /app &&
+        echo '📋 Repository contents:' &&
+        ls -la &&
+        echo '📦 Installing dependencies...' &&
         npm install &&
+        echo '🗄️ Generating Prisma client...' &&
         npx prisma generate &&
+        echo '🏗️ Building application...' &&
         npm run build &&
+        echo '✅ Build complete! Starting server...' &&
         npm start
       "
     ports:
@@ -43,13 +36,9 @@ services:
       - RESEND_API_KEY=${RESEND_API_KEY}
       - FROM_EMAIL=${FROM_EMAIL:-noreply@localhost}
       - NEXT_TELEMETRY_DISABLED=1
-    volumes:
-      - app-files:/app
-      - /app/node_modules
-      - /app/.next
     depends_on:
-      - init
-      - db
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
   db:
@@ -70,4 +59,3 @@ services:
 
 volumes:
   postgres_data:
-  app-files:
