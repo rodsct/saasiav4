@@ -1,0 +1,23 @@
+# Minimal test - Just clone and run with existing package.json
+services:
+  app:
+    image: node:20-alpine
+    working_dir: /app
+    command: >
+      sh -c "
+        echo '🚀 Ultra minimal test...' &&
+        apk add --no-cache git &&
+        git clone --depth 1 https://github.com/rodsct/saasiav4.git . &&
+        echo '📋 Contents:' && ls -la &&
+        echo '📋 Package.json exists:' && test -f package.json && echo 'YES' || echo 'NO' &&
+        echo '🏃 Attempting to start with existing setup...' &&
+        node --version && npm --version &&
+        echo 'Testing basic Next.js...' &&
+        timeout 60 npx next@15.1.0 dev || echo 'Timeout reached'
+      "
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: "no"
