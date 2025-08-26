@@ -1,4 +1,4 @@
-# Easypanel-compatible Docker Compose WITHOUT Dockerfile dependency
+# Alternative configuration with port 8080 (in case 3001 is also busy)
 services:
   app:
     image: node:18-alpine
@@ -12,11 +12,11 @@ services:
         npm start
       "
     ports:
-      - "3001:3000"
+      - "8080:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-saas_personal_agent}
-      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3001}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:8080}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secret-key}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
@@ -50,16 +50,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 20s
-
-  adminer:
-    image: adminer:4.8.1
-    ports:
-      - "${ADMINER_PORT:-8080}:8080"
-    depends_on:
-      - db
-    restart: unless-stopped
-    profiles:
-      - admin
 
 volumes:
   postgres_data:
