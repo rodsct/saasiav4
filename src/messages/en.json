@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "welcome": "Welcome",
+    "welcomeBack": "Welcome back"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "billing": "Billing",
+    "profile": "Profile",
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "contact": "Contact"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your Personal Agent",
+    "stats": "Statistics",
+    "recentActivity": "Recent Activity"
+  },
+  "billing": {
+    "title": "Billing & Subscriptions",
+    "currentPlan": "Current Plan",
+    "upgradePlan": "Upgrade Plan",
+    "cancelSubscription": "Cancel Subscription",
+    "billingHistory": "Billing History",
+    "paymentMethod": "Payment Method"
+  },
+  "agent": {
+    "title": "Personal Agent",
+    "chat": "Chat with Agent",
+    "settings": "Agent Settings",
+    "history": "Chat History",
+    "newConversation": "New Conversation"
+  }
+}
