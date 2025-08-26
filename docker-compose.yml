@@ -1,21 +1,19 @@
-# Git Clone Solution - Fixed for dependency conflicts and restarts
+# Optimized Git Clone Solution - Fast and reliable
 services:
   app:
     image: node:18-alpine
     working_dir: /tmp
     command: >
       sh -c "
-        echo '🚀 Starting deployment process...' &&
-        apk add --no-cache libc6-compat git openssh &&
+        echo '🚀 Starting optimized deployment...' &&
+        apk add --no-cache libc6-compat git &&
         echo '🧹 Cleaning previous installation...' &&
         rm -rf /app &&
         echo '📦 Cloning repository...' &&
-        git clone https://github.com/rodsct/saasiav4.git /app &&
+        git clone --depth 1 https://github.com/rodsct/saasiav4.git /app &&
         cd /app &&
-        echo '📋 Repository contents:' &&
-        ls -la &&
-        echo '📦 Installing dependencies (with legacy peer deps)...' &&
-        npm install --legacy-peer-deps &&
+        echo '📦 Installing with npm ci (faster)...' &&
+        npm ci --only=production --silent &&
         echo '🗄️ Generating Prisma client...' &&
         npx prisma generate &&
         echo '🏗️ Building application...' &&
@@ -38,6 +36,9 @@ services:
       - RESEND_API_KEY=${RESEND_API_KEY}
       - FROM_EMAIL=${FROM_EMAIL:-noreply@localhost}
       - NEXT_TELEMETRY_DISABLED=1
+      - NPM_CONFIG_FUND=false
+      - NPM_CONFIG_AUDIT=false
+      - NPM_CONFIG_UPDATE_NOTIFIER=false
     depends_on:
       db:
         condition: service_healthy
