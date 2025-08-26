@@ -1,0 +1,33 @@
+# Minimal working solution - Next.js development mode
+services:
+  app:
+    image: node:18-alpine
+    working_dir: /app
+    command: >
+      sh -c "
+        echo '🚀 Starting minimal Next.js app...' &&
+        apk add --no-cache libc6-compat git &&
+        git clone --depth 1 https://github.com/rodsct/saasiav4.git . &&
+        echo '📦 Installing essential packages only...' &&
+        npm install next@latest react@latest react-dom@latest &&
+        echo '🏃 Starting development server...' &&
+        npx next dev
+      "
+    ports:
+      - "3001:3000"
+    environment:
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=saas_personal_agent
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

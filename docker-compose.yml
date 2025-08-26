@@ -1,24 +1,22 @@
-# Optimized Git Clone Solution - Fast and reliable
+# Working Solution - Using standard npm install with verbose logging
 services:
   app:
     image: node:18-alpine
     working_dir: /tmp
     command: >
       sh -c "
-        echo '🚀 Starting optimized deployment...' &&
+        echo '🚀 Starting deployment with verbose logging...' &&
         apk add --no-cache libc6-compat git &&
-        echo '🧹 Cleaning previous installation...' &&
         rm -rf /app &&
-        echo '📦 Cloning repository...' &&
         git clone --depth 1 https://github.com/rodsct/saasiav4.git /app &&
         cd /app &&
-        echo '📦 Installing with npm ci (faster)...' &&
-        npm ci --only=production --silent &&
+        echo '📦 Installing dependencies with npm install...' &&
+        npm install --production --verbose &&
         echo '🗄️ Generating Prisma client...' &&
         npx prisma generate &&
         echo '🏗️ Building application...' &&
         npm run build &&
-        echo '✅ Build complete! Starting server...' &&
+        echo '✅ Starting server...' &&
         npm start
       "
     ports:
@@ -36,9 +34,6 @@ services:
       - RESEND_API_KEY=${RESEND_API_KEY}
       - FROM_EMAIL=${FROM_EMAIL:-noreply@localhost}
       - NEXT_TELEMETRY_DISABLED=1
-      - NPM_CONFIG_FUND=false
-      - NPM_CONFIG_AUDIT=false
-      - NPM_CONFIG_UPDATE_NOTIFIER=false
     depends_on:
       db:
         condition: service_healthy
