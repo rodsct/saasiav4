@@ -1,4 +1,4 @@
-# Git Clone Solution - Most reliable for Easypanel
+# Git Clone Solution - Fixed for dependency conflicts and restarts
 services:
   app:
     image: node:18-alpine
@@ -7,13 +7,15 @@ services:
       sh -c "
         echo '🚀 Starting deployment process...' &&
         apk add --no-cache libc6-compat git openssh &&
+        echo '🧹 Cleaning previous installation...' &&
+        rm -rf /app &&
         echo '📦 Cloning repository...' &&
         git clone https://github.com/rodsct/saasiav4.git /app &&
         cd /app &&
         echo '📋 Repository contents:' &&
         ls -la &&
-        echo '📦 Installing dependencies...' &&
-        npm install &&
+        echo '📦 Installing dependencies (with legacy peer deps)...' &&
+        npm install --legacy-peer-deps &&
         echo '🗄️ Generating Prisma client...' &&
         npx prisma generate &&
         echo '🏗️ Building application...' &&
