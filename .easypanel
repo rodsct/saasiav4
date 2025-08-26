@@ -1,0 +1,13 @@
+# Easypanel Configuration
+# Use docker-compose.yml as primary configuration
+# Dockerfile is in root directory
+# No docker-compose.override.yml should be used
+
+services:
+  - name: app
+    build: .
+    port: 3000
+    env_file: .env
+
+database:
+  - postgres:15-alpine
