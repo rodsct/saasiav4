@@ -1,0 +1,5 @@
+# Empty override file - Easypanel keeps looking for this file
+# This prevents the "file not found" error
+# All configuration is in docker-compose.yml
+
+services: {}
