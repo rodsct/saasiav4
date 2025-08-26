@@ -7,6 +7,7 @@ services:
       sh -c "
         echo '🚀 Starting full Next.js deployment...' &&
         apk add --no-cache git &&
+        rm -rf .git ./* &&
         git clone --depth 1 https://github.com/rodsct/saasiav4.git . &&
         echo '🔧 Using bare next.config.mjs...' &&
         cp next.config.bare.mjs next.config.mjs &&

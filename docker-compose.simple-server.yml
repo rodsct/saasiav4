@@ -7,6 +7,7 @@ services:
       sh -c "
         echo '🚀 Starting simple Node.js server...' &&
         apk add --no-cache git &&
+        rm -rf .git ./* &&
         git clone --depth 1 https://github.com/rodsct/saasiav4.git . &&
         echo '📁 Repository contents:' && ls -la &&
         echo '🏃 Starting simple server...' &&
