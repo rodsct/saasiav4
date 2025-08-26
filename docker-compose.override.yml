@@ -1,5 +1,9 @@
-# Empty override file - Easypanel keeps looking for this file
-# This prevents the "file not found" error
-# All configuration is in docker-compose.yml
+# Override file for Easypanel - DO NOT DELETE
+# Easypanel automatically looks for this file
+# This file ensures build context is correct
 
-services: {}
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile

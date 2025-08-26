@@ -1,26 +1,25 @@
+# Fixed Docker Compose specifically for Easypanel path issues
 services:
   app:
     build:
-      context: .
-      dockerfile: ./Dockerfile
-      args:
-        - NODE_ENV=production
+      context: /etc/easypanel/projects/proyectonuevo/saasiav4/code
+      dockerfile: /etc/easypanel/projects/proyectonuevo/saasiav4/code/Dockerfile
     ports:
       - "3000:3000"
-    depends_on:
-      - db
     environment:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-saas_personal_agent}
-      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secret-key}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
       - RESEND_API_KEY=${RESEND_API_KEY}
-      - FROM_EMAIL=${FROM_EMAIL:-noreply@localhost}
-      - NODE_ENV=${NODE_ENV:-production}
+      - FROM_EMAIL=${FROM_EMAIL}
+      - NODE_ENV=production
+    depends_on:
+      - db
     restart: unless-stopped
 
   db:
@@ -37,16 +36,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
-  adminer:
-    image: adminer:4.8.1
-    ports:
-      - "${ADMINER_PORT:-8080}:8080"
-    depends_on:
-      - db
-    restart: unless-stopped
-    profiles:
-      - admin
 
 volumes:
   postgres_data:
