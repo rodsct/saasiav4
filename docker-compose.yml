@@ -1,7 +1,7 @@
 # Working Solution - Using standard npm install with verbose logging
 services:
   app:
-    image: node:18-alpine
+    image: node:20-alpine
     working_dir: /tmp
     command: >
       sh -c "
